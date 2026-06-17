@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI 線上計算機</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
+        .success { background-color: #e7f4e4; color: #2e7d32; }
+        .error { background-color: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>BMI 計算機</h2>
+    
+    <div class="input-group">
+        <label for="height">身高 (公分 cm)</label>
+        <input type="number" id="height" placeholder="例如：175" step="any" required>
+    </div>
+    
+    <div class="input-group">
+        <label for="weight">體重 (公斤 kg)</label>
+        <input type="number" id="weight" placeholder="例如：65" step="any" required>
+    </div>
+    
+    <button id="calculate-btn">開始計算</button>
+    
+    <div id="result-box" class="result"></div>
+</div>
+
+<script>
+    document.getElementById('calculate-btn').addEventListener('click', async () => {
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const resultBox = document.getElementById('result-box');
+
+        // 清空並隱藏先前的結果
+        resultBox.style.display = 'none';
+        resultBox.className = 'result';
+
+        // 發送 POST 請求到後端 Node.js 伺服器
+        try {
+            const response = await fetch('/api/bmi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ height, weight })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                resultBox.innerHTML = `您的 BMI：${data.bmi}<br>狀態：${data.status}`;
+                resultBox.classList.add('success');
+            } else {
+                resultBox.innerText = data.error || '計算失敗，請檢查輸入值。';
+                resultBox.classList.add('error');
+            }
+        } catch (error) {
+            resultBox.innerText = '無法連線到伺服器。';
+            resultBox.classList.add('error');
+        }
+
+        // 顯示結果區塊
+        resultBox.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
