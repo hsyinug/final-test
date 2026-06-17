@@ -1,10 +1,10 @@
-# 📝 BMI 線上計算機 — 作品說明 (Project README)
+### 📝 BMI 線上計算機 — 作品說明 (Project README)
 
 本專案是一個基於 **Node.js (Express)** 與 **Vercel Serverless Functions** 架構開發的輕量化 BMI 線上計算網頁。前端採用原生 HTML5/CSS3 與 JavaScript Fetch API，後端則部署於雲端無伺服器平台，提供即時、高效且免重新整理頁面的流暢計算體驗。
 
 ---
 
-## 📂 專案檔案架構 (Project Architecture)
+#### 📂 專案檔案架構 (Project Architecture)
 
 本專案依循 Vercel 的 Serverless Functions 規範進行目錄分層，確保前後端邏輯完全分離且能流暢部署：
 
@@ -17,11 +17,11 @@
 
 ---
 
-## 🔄 系統架構與資料流協作說明 (Data Flow & Collaboration)
+#### 🔄 系統架構與資料流協作說明 (Data Flow & Collaboration)
 
 雖然本專案目前定位為輕量化實作，尚未實體串接大型資料庫（Database）與機器學習（ML）預測模組，但系統架構已預留標準的 API 擴充接口。以下說明現階段的資料流向，以及未來導入資料庫與 ML 模組時的協作串接模式：
 
-### 1. 現階段資料流向 (Current Data Flow)
+##### 1. 現階段資料流向 (Current Data Flow)
 使用者在前端輸入數據後，整體資料流採 **非同步 HTTP POST 請求** 進行傳遞：
 
 * **Step 1：[前端網頁: index.html]**
@@ -37,7 +37,7 @@
 
 ---
 
-### 2. 未來擴充：前後端、資料庫、ML 模組串接藍圖
+##### 2. 未來擴充：前後端、資料庫、ML 模組串接藍圖
 
 若未來專案規模擴大，需加入**歷史紀錄儲存（資料庫）**與**健康趨勢預測（ML 模組）**，整體的協作與串接架構將升級如下：
 
@@ -54,8 +54,8 @@
 
 ---
 
-## 🚀 部署資訊 (Deployment)
+#### 🚀 部署資訊 (Deployment)
 
 * **原始碼管制**：GitHub
 * **雲端託管平台**：Vercel (Serverless 環境)
-* **線上正式版網址**：[https://final-test-one-sigma.vercel.app](https://final-test-one-sigma.vercel.app)app/
+* **線上正式版網址**：[https://final-test-one-sigma.vercel.app](https://final-test-one-sigma.vercel.app)
